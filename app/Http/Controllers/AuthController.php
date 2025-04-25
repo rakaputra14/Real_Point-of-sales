@@ -28,6 +28,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+
             $user = Auth::user();
             $selectedRoleId = $request->input('role');
             if (!$user->roles->contains('id', $selectedRoleId)) {
@@ -36,7 +37,6 @@ class AuthController extends Controller
                 return back()->withInput();
             }
             session(['selected_role' => $user->roles->firstWhere('id', $selectedRoleId)->name]);
-
             Alert::success('Welcome Back', 'You have successfully logged in!');
             return redirect('dashboard');
         } else {

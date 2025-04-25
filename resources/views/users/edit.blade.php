@@ -26,7 +26,7 @@
                                     placeholder="Enter new password (optional)">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label d-block">Jurusan</label>
+                                <label class="form-label d-block">Roles</label>
                                 @foreach ($roles as $role)
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}"

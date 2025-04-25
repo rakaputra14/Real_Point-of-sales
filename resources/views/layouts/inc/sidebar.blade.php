@@ -6,10 +6,41 @@
         <li class="nav-item">
             <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/dashboard">
                 <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+                <span>
+                    @anyrole(['Kasir', 'Pimpinan'])
+                    Stok Barang
+                    @endrole
+
+                    @role('Administrator')
+                    Dashboard
+                    @endrole
+                </span>
             </a>
         </li>
 
+        @role('Kasir')
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/pos-sale">
+                <i class="bi bi-grid"></i>
+                <span>
+                    Kasir
+                </span>
+            </a>
+        </li>
+        @endrole
+
+        @role('Pimpinan')
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/pos">
+                <i class="bi bi-grid"></i>
+                <span>
+                    Laporan Penjualan
+                </span>
+            </a>
+        </li>
+        @endrole
+
+        @role('Administrator')
         <li class="nav-item">
             <a class="nav-link {{ Request::is('category*', 'user', 'product') ? '' : 'collapsed' }}"
                 data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -25,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/users">
+                    <a href="/users" class="nav-link {{ Request::is('users') ? '' : 'collapsed' }}">
                         <i class="bi bi-circle"></i><span>User</span>
                     </a>
                 </li>
@@ -35,7 +66,7 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Components Nav -->
+        </li>
 
         <li class="nav-item">
             <a class="nav-link {{ Request::is('pos', 'pos-sale') ? '' : 'collapsed' }}" data-bs-target="#forms-nav"
@@ -55,7 +86,9 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Forms Nav -->
+        </li>
+        @endrole
+
 
     </ul>
 
