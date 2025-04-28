@@ -65,6 +65,11 @@
                         <i class="bi bi-circle"></i><span>Produk</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/roles" class="nav-link {{ Request::is('roles') ? '' : 'collapsed' }}">
+                        <i class="bi bi-circle"></i><span>Role</span>
+                    </a>
+                </li>
             </ul>
         </li>
 

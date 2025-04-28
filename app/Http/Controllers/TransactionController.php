@@ -149,5 +149,13 @@ class TransactionController extends Controller
     //     return view('report.print', compact('orders'));
     // }
 
+    public function exportPdf()
+    {
+        $orders = Order::with('orderDetails.product')->get();
+        $pdf = \PDF::loadView('pos.orders', compact('orders'))
+            ->setPaper('a4', 'landscape')
+            ->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->download('orders.pdf');
+    }
 
 }

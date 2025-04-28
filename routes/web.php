@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 Route::get('/', [AuthController::class, 'login'])->middleware('checkAuth');
 Route::post('action-login', [AuthController::class, 'actionLogin']);
@@ -36,7 +37,19 @@ Route::middleware(['role:Kasir,Administrator'])->group(function () {
     Route::post('pos-sale', [TransactionController::class, 'store'])->name('pos-sale.store');
 });
 
+Route::get('/export-pdf', [TransactionController::class, 'exportPdf'])->name('export.pdf');
 
+// ... existing routes ...
+// Route::resource('roles', RoleController::class);
+// ... existing routes ...
+
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+Route::get('/roles/{role}', [RoleController::class, 'show'])->name('roles.show');
+Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
 // Route::middleware('role:admin')->group(function () {
 //   Route::get('/test', function () {

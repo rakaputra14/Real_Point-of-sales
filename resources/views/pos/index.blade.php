@@ -26,6 +26,9 @@
                 <button id="print-report" class="btn btn-primary" style="margin-left: 20px;">
                     <i class="fas fa-print"></i> Print Report
                 </button>
+             <a href="{{ route('export.pdf') }}" class="btn btn-danger">
+                 <i class="fas fa-file-pdf"></i> Export PDF Orders
+             </a>
             </div>
 
             <!-- Table -->
@@ -58,6 +61,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -123,7 +127,6 @@
             });
 
             // Print Button
-            // Print Button
             $('#print-report').click(function () {
                 var data = table.rows({ search: 'applied' }).data(); // Only visible (filtered) data
 
@@ -154,6 +157,20 @@
                 printWindow.print();
             });
 
+            // Export PDF
+            $('#export-pdf').click(function () {
+                const { jsPDF } = window.jspdf;
+                var doc = new jsPDF();
+                var data = table.rows({ search: 'applied' }).data(); // Only visible (filtered) data
+
+                doc.text('Order Report', 14, 16);
+                doc.autoTable({
+                    head: [['Order Code', 'Amount', 'Order Date', 'Order Change']],
+                    body: Array.from(data).map(row => [row[0], row[1], row[2], row[3]]),
+                });
+
+                doc.save('order_report.pdf');
+            });
 
             // Clickable row
             $('#tabelorder tbody').on('click', 'tr', function () {
