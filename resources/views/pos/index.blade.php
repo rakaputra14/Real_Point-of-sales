@@ -94,7 +94,7 @@
                 {
                     var monday = new Date(today);
                     var day = monday.getDay();
-                    var diffToMonday = day === 0 ? -6 : 1 - day;
+                    var diffToMonday = day - 7;
                     monday.setDate(monday.getDate() + diffToMonday);
                     monday.setHours(0, 0, 0, 0);
 
