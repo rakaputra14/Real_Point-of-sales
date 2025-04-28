@@ -26,8 +26,11 @@ Route::group(['middleware' => 'checkAuth'], function () {
 Route::middleware(['role:Administrator'])->group(function () {
     Route::resource('users', UserController::class);
 });
+Route::middleware(['role:Pimpinan'])->group(function () {
+    Route::get('/report/{id}', [TransactionController::class, 'reportDetail'])->name('reportDetail');
+});
 
-Route::middleware(['role:Kasir'])->group(function () {
+Route::middleware(['role:Kasir,Administrator'])->group(function () {
     Route::get('print/{id}', [TransactionController::class, 'print'])->name('print');
     Route::get('pos-sale', [TransactionController::class, 'create']);
     Route::post('pos-sale', [TransactionController::class, 'store'])->name('pos-sale.store');

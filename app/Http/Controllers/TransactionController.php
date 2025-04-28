@@ -86,7 +86,7 @@ class TransactionController extends Controller
     // pos page
     public function index()
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(5);
+        $orders = Order::orderBy('id', 'desc')->paginate(99);
         return view('pos.index', compact('orders'));
     }
 
@@ -126,4 +126,28 @@ class TransactionController extends Controller
         Alert::success('Success', 'Payment has been successfully processed.');
         return redirect()->route('pos.index');
     }
+
+
+    public function report()
+    {
+        // orderBy('category_name', 'asc')
+        $orders = Order::orderBy('order_date', 'desc')->get();
+        // return $orders;
+        return view('pimpinan.laporan', compact('orders'));
+    }
+
+    public function reportDetail(string $id)
+    {
+        $order = Order::with('orderDetails.product')->findOrFail($id);
+        // return $order;
+        return view('pimpinan.detail-laporan', compact('order'));
+    }
+
+    // public function print()
+    // {
+    //     $orders = Order::get();
+    //     return view('report.print', compact('orders'));
+    // }
+
+
 }

@@ -455,10 +455,10 @@
                     this.clearSound();
                 },
                 beep() {
-                    this.playSound("sound/beep-29.mp3");
+                    this.playSound("{{asset('assets/sound/beep-29.mp3')}}");
                 },
                 clearSound() {
-                    this.playSound("sound/button-21.mp3");
+                    this.playSound("{{asset('assetssound/button-21.mp3')}}");
                 },
                 playSound(src) {
                     const sound = new Audio();
