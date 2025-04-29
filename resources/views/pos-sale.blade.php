@@ -377,12 +377,13 @@
                     if (index === -1) return;
 
                     const product = this.products.find(p => p.id === item.productId);
-                    const maxQty = product?.option?.qty || 0;
+                    const maxQty = product?.qty || 0;
+
                     const afterAdd = item.qty + qty;
 
                     if (afterAdd > maxQty)
                     {
-                        alert("Jumlah melebihi stok!");
+                        alert("Stok habis!");
                         return;
                     }
 

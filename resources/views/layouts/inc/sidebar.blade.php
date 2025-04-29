@@ -82,12 +82,12 @@
                 data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/pos-sale" class="nav-link {{ Request::is('pos-sale') ? '' : 'collapsed' }}">
-                        <i class="bi bi-circle"></i><span>Pos Sale</span>
+                        <i class="bi bi-circle"></i><span>Kasir</span>
                     </a>
                 </li>
                 <li>
                     <a href="/pos" class="nav-link {{ Request::is('pos') ? '' : 'collapsed' }}">
-                        <i class="bi bi-circle"></i><span>POS</span>
+                        <i class="bi bi-circle"></i><span>Laporan Penjualan</span>
                     </a>
                 </li>
             </ul>

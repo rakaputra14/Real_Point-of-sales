@@ -25,25 +25,25 @@
                                     required>
                             </div>
                             <!-- <div class="mb-3">
-                                <label class="form-label d-block">Roles</label>
-                                @foreach ($roles as $role)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}"
-                                            id="role-{{ $role->id }}" {{ in_array($role->id, $role->pluck('id')->toArray()) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="role-{{ $role->id }}">{{ $role->name }}</label>
-                                    </div>
-                                @endforeach
-                            </div> -->
+                                        <label class="form-label d-block">Roles</label>
+                                        @foreach ($roles as $role)
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="roles[]"
+                                                    value="{{ $role->id }}" id="role-{{ $role->id }}">
+                                                <label class="form-check-label" for="role-{{ $role->id }}">{{ $role->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div> -->
                             <div class="mb-3">
-                                <label class="form-label d-block">Jurusan</label>
-                                @foreach ($roles as $role)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="roles[]"
-                                            value="{{ $role->id }}" id="role-{{ $role->id }}">
-                                        <label class="form-check-label" for="role-{{ $role->id }}">{{ $role->name }}</label>
-                                    </div>
-                                @endforeach
+                                <label for="role" class="form-label">Role</label>
+                                <select name="role" id="role" class="form-select" required>
+                                    <option disabled selected>-- Pilih Role --</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Save</button>
                                 <button type="reset" class="btn btn-danger">Cancel</button>

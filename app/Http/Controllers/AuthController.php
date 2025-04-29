@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-
 
 class AuthController extends Controller
 {
     public function login()
     {
-        // get Role dropdown from database role is active
-        $roles = Role::where('is_active', 1)->get();
-        return view('login', compact('roles'));
+        return view('login'); // No need to fetch roles anymore
     }
 
     public function actionLogin(Request $request)
@@ -22,21 +18,17 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'role' => 'required|exists:roles,id'
         ]);
 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-
             $user = Auth::user();
-            $selectedRoleId = $request->input('role');
-            if (!$user->roles->contains('id', $selectedRoleId)) {
-                Auth::logout();
-                Alert::toast('Role invalid!', 'error');
-                return back()->withInput();
-            }
-            session(['selected_role' => $user->roles->firstWhere('id', $selectedRoleId)->name]);
+
+            // Optional: Save the user's first (default) role to session
+            $defaultRole = $user->roles->first(); // Assuming user has at least one role
+            session(['selected_role' => $defaultRole ? $defaultRole->name : null]);
+
             Alert::success('Welcome Back', 'You have successfully logged in!');
             return redirect('dashboard');
         } else {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -36,7 +37,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        $user->roles()->attach($request->roles);
+        $user->roles()->attach($request->role);
 
         return redirect()->to('users');
     }
@@ -73,8 +74,8 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        if ($request->has('roles')) {
-            $user->roles()->sync($request->roles);
+        if ($request->has('role')) { // check 'role' not 'roles'
+            $user->roles()->sync([$request->role]); // wrap it in array []
         }
 
         return redirect()->to('users');
